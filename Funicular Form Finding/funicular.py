@@ -9,7 +9,7 @@ m = array of slopes [m1, m2]
 x0 = x coordinate of points [x1, x2]
 y0 = y coordinates of points [y1, y2]
 '''
-def get_intersect(m, x0, y0):
+def get_intersect_points(m, x0, y0):
 
     b=[]
     for i in range(len(m)):
@@ -29,7 +29,7 @@ m0 = slope of line
 d = radius of circle
 (xi, yi) = center of circle
 '''
-def get_intersect(m0, x0, y0, d, xi, yi):
+def get_intersect_cirlce(m0, x0, y0, d, xi, yi):
     b = m0*x0 - y0 + yi
 
     A = (1+m0**2)
@@ -191,7 +191,7 @@ class funicular_polygon:
             mLL = (p1[1]-p0[1])/(p1[0]-p0[0])
             xL = self.load_line[i0, 0]
             yL = self.load_line[i0, 1]
-            inter = get_intersect([m, mLL], [p[0], xL], [p[1], yL])
+            inter = get_intersect_points([m, mLL], [p[0], xL], [p[1], yL])
 
         return inter
 
@@ -227,7 +227,7 @@ class funicular_polygon:
             n = self.load_line_intersect(self.origin, zy)
 
             # Use these points and the desired slopes to find new origin
-            O = get_intersect([XY, ZY], [m[0], n[0]], [m[1], n[1]])
+            O = get_intersect_points([XY, ZY], [m[0], n[0]], [m[1], n[1]])
 
             # Get new funicular polygon
             self.origin = O
@@ -255,7 +255,7 @@ class funicular_polygon:
 
         origins = []
         for p in self.load_line:
-            intersects = get_intersect(slope, cF[0], cF[1], Fmax, p[0], p[1])
+            intersects = get_intersect_circle(slope, cF[0], cF[1], Fmax, p[0], p[1])
 
             for o in intersects:
                 if np.nan not in o:
